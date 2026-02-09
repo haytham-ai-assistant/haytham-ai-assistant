@@ -15,7 +15,7 @@ metadata:
 
 ## 前置条件
 
-1. 遵循 `io-workflow` 智能体技能
+1. 遵循 `/io-workflow` 智能体技能
 2. 已安装 `pandoc` 用于文档转换
 3. 已安装 `git` 和 `gh` 用于版本控制和 GitHub 操作
 4. 拥有对目标仓库的写入权限
