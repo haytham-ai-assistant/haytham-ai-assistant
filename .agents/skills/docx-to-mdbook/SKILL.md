@@ -1,6 +1,6 @@
 ---
 name: docx-to-mdbook
-description: 将用户提供的 Word 文档转换处理为 Markdown 后提交到海塞姆 mdBook 文档仓库
+description: 将用户提供的 Word 文档转换处理为 Markdown 后提交到[海塞姆 mdBook 文档仓库](https://github.com/haytham-ai/public-docs)
 metadata:
   audience: maintainers
   workflow: github
@@ -23,7 +23,9 @@ metadata:
 ### 环境准备
 
 - 创建独立任务文件夹：`./<任务名>`
-- 克隆目标仓库到任务文件夹内
+- Fork [海塞姆 mdBook 文档仓库](https://github.com/haytham-ai/public-docs)（若未）
+- 在 Fork 仓库创建用于本提交的分支
+- 克隆仓库分支到任务文件夹内
 - 下载 Word 文档附件（使用 curl 或 wget）
 
 ### 文档转换
@@ -54,6 +56,7 @@ metadata:
   ```bash
   git commit -m "【文档】文档描述……"
   ```
+- 创建
 
 ## 注意事项
 
