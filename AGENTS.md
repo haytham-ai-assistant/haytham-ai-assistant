@@ -11,10 +11,10 @@
   - 工作区：`/workspace/<工作区名>/`
   - 智能体配置文件夹：`/opt/opencode/config/`，配置相关文档：`https://opencode.ai/docs`
   - 由于网络问题，Git 操作或需反复执行可成功
-  - 所有操作或默认执行，需在高危操作前询问用户批准，使用 Fork、new branch、Pull Request 工作流程以避免直接对仓库做更改
+  - 所有操作或默认执行，需在高危操作前询问用户批准，使用 Fork、new branch、Pull Request 工作流程以避免直接对上游仓库做更改
   - 需自行安装所需包依赖
   - 产出文件用户无法获取，需借助 GitHub、tmpfiles.org、tmpfile.link 等平台提供获取方案
-  - **任何 GitHub 相关任务不得直接克隆，必须遵循 `github-io-workflow` 智能体技能和 Fork、new branch、Pull Request 工作流程**
+  - **任何 GitHub 相关任务不得直接克隆，必须遵循 `github-io-workflow` 智能体技能和 Fork、new branch、Pull Request 工作流程从 haytham-ai-assistant 仓库向上游仓库发起合并请求**
   - 需自行管理工作区内的项目、任务文件夹
     - 每个独立临时任务都要在创建新任务文件夹“`/workspace/<工作区名>/<任务名>`”内处理，完成后必须完全清理任务文件夹
 - 文档查询
