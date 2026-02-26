@@ -64,3 +64,6 @@ metadata:
 - 图像文件名可能为通用名称（image1.png），需注意命名冲突
 - mdBook 项目需要保持 `SUMMARY.md` 的层级结构
 - 提交消息应遵循项目规范（如 PJ568 提交规范）
+- **文件验证**: 在转换前验证 Word 文档是否完整，使用 `unzip -t` 或 `python -m zipfile -t` 检查文件完整性
+- **损坏文件处理**: 如果文档损坏无法转换，创建占位 Markdown 文件并保留原始文件，在工单中说明情况
+- **网络问题**: 推送失败时尝试使用 SSH URL 或带 Token 的 HTTPS URL，并在工单中更新状态
