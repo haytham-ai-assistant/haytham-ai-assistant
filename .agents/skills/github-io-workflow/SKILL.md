@@ -1,6 +1,6 @@
 ---
-name: io-workflow
-description: 需获取用户上传文件、把文件（产物）发给用户或处理 GitHub 工单请求和项目任务时直接使用
+name: github-io-workflow
+description: 适合在获取用户上传文件、把文件（产物）发给用户、处理 GitHub 工单请求和项目任务或任意 GitHub 相关任务时阅读遵循使用
 ---
 
 - 任务流程
