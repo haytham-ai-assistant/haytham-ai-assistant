@@ -100,7 +100,7 @@ retry-exec gh repo create <仓库名> --public --source=. --remote=origin
 
 ```bash
 # 克隆到任务文件夹
-git clone https://${GH_TOKEN}@github.com/haytham-ai-assistant/<仓库名>.git .
+retry-exec git clone https://${GH_TOKEN}@github.com/haytham-ai-assistant/<仓库名>.git .
 
 # 或切换到对应分支
 git checkout -b feature/<任务名>-<日期>
@@ -145,7 +145,7 @@ retry-exec git push origin feature/<任务名>-<日期>
 1. **提交合并请求（Pull Request）**
    
    ```bash
-   gh pr create --base main --head feature/<任务名>-<日期> \
+   retry-exec gh pr create --base main --head feature/<任务名>-<日期> \
      --title "<PR 标题>" \
      --body "<PR 描述>"
    ```
@@ -210,7 +210,7 @@ git push origin master
 ### 创建 Pull Request
 
 ```bash
-curl -X POST -H "Authorization: token ${GH_TOKEN}" \
+retry-exec curl -X POST -H "Authorization: token ${GH_TOKEN}" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/组织名/仓库名/pulls \
   -d '{
@@ -225,18 +225,18 @@ curl -X POST -H "Authorization: token ${GH_TOKEN}" \
 
 ```bash
 # 获取 check runs 状态
-curl -H "Authorization: token ${GH_TOKEN}" \
+retry-exec curl -H "Authorization: token ${GH_TOKEN}" \
   https://api.github.com/repos/组织名/仓库名/commits/提交SHA/check-runs
 
 # 获取 PR 详情
-curl -H "Authorization: token ${GH_TOKEN}" \
+retry-exec curl -H "Authorization: token ${GH_TOKEN}" \
   https://api.github.com/repos/组织名/仓库名/pulls/PR编号
 ```
 
 ### 关闭 PR
 
 ```bash
-curl -X PATCH -H "Authorization: token ${GH_TOKEN}" \
+retry-exec curl -X PATCH -H "Authorization: token ${GH_TOKEN}" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/用户名/仓库名/pulls/PR编号 \
   -d '{"state":"closed"}'
