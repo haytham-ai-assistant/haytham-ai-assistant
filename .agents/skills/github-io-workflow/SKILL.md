@@ -83,7 +83,7 @@ cd /workspace/<工作区名>/<任务名>
 
 ```bash
 # Fork 上游仓库
-gh repo fork haytham-ai-assistant/haytham-ai-assistant --clone=false
+retry-exec gh repo fork haytham-ai-assistant/haytham-ai-assistant --clone=false
 
 # 创建功能分支
 git checkout -b feature/<任务名>-<日期>
@@ -93,7 +93,7 @@ git checkout -b feature/<任务名>-<日期>
 
 ```bash
 # 创建新仓库
-gh repo create <仓库名> --public --source=. --remote=origin
+retry-exec gh repo create <仓库名> --public --source=. --remote=origin
 ```
 
 #### 3. 初始化本地 Git 仓库
@@ -126,7 +126,7 @@ git add <文件>
 git commit -m "【类型，范围】摘要"
 
 # 推送更改
-git push origin feature/<任务名>-<日期>
+retry-exec git push origin feature/<任务名>-<日期>
 ```
 
 **提交规范要点：**
