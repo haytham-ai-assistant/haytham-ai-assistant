@@ -105,6 +105,39 @@ sed -i 's/(\l.*\.docx)//g' 文档.md  # 删除无效内部链接
 
 等各类检查。
 
+### 6.5 格式检查与修复 (AutoCorrect)
+
+**必须执行**：确保中文排版格式符合规范，通过 CI 的"多语言格式检查"。
+
+```bash
+# 安装 AutoCorrect（若未安装）
+# 方法一：使用预编译二进制（推荐）
+wget -q https://github.com/huacnlee/autocorrect/releases/download/v2.10.0/autocorrect-linux-x86_64.tar.gz -O /tmp/autocorrect.tar.gz
+tar -xzf /tmp/autocorrect.tar.gz -C /tmp
+chmod +x /tmp/autocorrect
+
+# 方法二：使用 cargo（需要 Rust 环境）
+# cargo install autocorrect
+
+# 检查格式问题
+/tmp/autocorrect . --lint --no-diff-bg-color
+
+# 如有错误，自动修复
+/tmp/autocorrect . --fix
+
+# 验证修复结果
+/tmp/autocorrect . --lint --no-diff-bg-color || echo "仍有格式问题需要手动修复"
+
+# 常见修复模式：
+# - 数字与中文间空格: 5.1模块概述 → 5.1 模块概述
+# - 英文与中文间空格: USB3.0数据线 → USB 3.0 数据线  
+# - 单位符号空格: 220V电压 → 220 V 电压
+# - 字母与中文间空格: X向应变 → X 向应变
+# - 版本号: WIN10 → WIN 10
+```
+
+**重要**：AutoCorrect 修复后必须重新进行质量检查，确保无意外改动。
+
 ### 7. 提交推送
 
 ```bash
