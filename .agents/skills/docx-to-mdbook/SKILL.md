@@ -156,6 +156,76 @@ retry-exec gh pr create \
 - **损坏文件处理**: 如果文档损坏无法转换，创建占位 Markdown 文件并保留原始文件，在工单中说明情况
 - **网络问题**: 推送失败时尝试使用 SSH URL 或带 Token 的 HTTPS URL，并在工单中更新状态
 
+## 实战经验补充
+
+### GitHub 访问问题处理
+当直接访问 `github.com` 超时或失败时，可使用以下镜像站进行 **读取操作**（克隆、下载文件、查看仓库）：
+
+- **主用镜像**: `bgithub.xyz`（替换 `github.com`）
+  ```bash
+  # 下载 issue 附件（原始 URL: https://github.com/.../releases/download/...）
+  retry-exec wget -c "https://bgithub.xyz/<owner>/<repo>/releases/download/..." -O "文档.docx"
+  
+  # 克隆仓库（带重试）
+  retry-exec git clone "https://bgithub.xyz/haytham-ai/public-docs.git"
+  ```
+
+- **备用镜像**: `gitclone.com`（需调整 URL 格式）
+- **注意**: 镜像站仅用于读取，**推送仍需使用原始 `github.com`**（可通过带 Token 的 HTTPS URL 绕过限制）
+
+### 推送配置
+当镜像站克隆后需切换回原始远程进行推送：
+
+```bash
+# 查看当前 remote
+git remote -v
+
+# 若为镜像站 URL，则修改 origin 为带 Token 的 HTTPS URL
+git remote set-url origin "https://${GH_TOKEN}@github.com/haytham-ai-assistant/public-docs.git"
+
+# 推送分支
+retry-exec git push origin feature/...
+```
+
+### 完整性验证
+转换前必须验证 Word 文档（`.docx` 为 ZIP 格式）是否完整：
+
+```bash
+# 方法一：使用 Python
+python -m zipfile -t "文档.docx" && echo "文件完整" || echo "文件损坏"
+
+# 方法二：使用 unzip
+unzip -t "文档.docx"
+```
+
+若文件损坏，极可能是未完全下载，试着重新下载。
+若确实为文件损坏，在工单中说明并请求重新上传。
+
+### 重试机制
+所有网络操作（下载、克隆、推送）必须使用 `retry-exec` 包装，确保单次失败不中断流程：
+
+```bash
+# 定义 retry-exec 函数（若未全局安装）
+retry-exec() {
+  local max_attempts=64
+  local delay=1
+  local attempt=1
+  
+  while [ $attempt -le $max_attempts ]; do
+    if "$@"; then
+      return 0
+    fi
+    
+    echo "尝试 $attempt 失败，${delay}秒后重试..."
+    sleep $delay
+    attempt=$((attempt + 1))
+  done
+  
+  echo "操作失败：$@"
+  return 1
+}
+```
+
 ### 格式清理
 
 Word 转换后常见问题：
