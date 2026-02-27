@@ -15,7 +15,7 @@ metadata:
 - 需要克隆仓库、下载 Release 文件、浏览代码
 - 需要配置 Git 或 CI/CD 使用镜像源
 
-## 可用镜像站列表（2026年2月测试）
+## 可用镜像站列表（2026 年 2 月测试）
 
 | 镜像站 | 类型 | 使用方式 | 可用性 | 备注 |
 |--------|------|----------|--------|------|
@@ -126,6 +126,6 @@ curl -L https://ghfast.top/https://github.com/用户/仓库/archive/main.zip -o 
 ## 参考资源
 
 - [GitHub 镜像站列表（持续更新）](https://blog.csdn.net/eytha/article/details/144797222)
-- [国内访问 Github 的四种方法（2025版）](https://blog.csdn.net/xinxiyinhe/article/details/145856498)
+- [国内访问 Github 的四种方法（2025 版）](https://blog.csdn.net/xinxiyinhe/article/details/145856498)
 - [GitHub 加速镜像目前可用](https://qjfyx.com/githubacce/)
 - [GitHub 文件加速集群](https://github.com/xiaoxuan6/github-mirror)
