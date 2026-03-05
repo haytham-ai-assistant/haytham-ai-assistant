@@ -278,6 +278,87 @@ Word 转换后常见问题：
 - 保持 `SUMMARY.md` 的缩进层级正确
 - 新增文档必须在 `SUMMARY.md` 中引用，否则不会被构建
 
+### 批量处理与特殊格式
+
+#### 批量处理多个文档
+当需要同时处理多个 Word 文档时：
+
+1. **统一命名规范**：为每个文档创建对应的产品目录名（英文小写，连字符分隔）
+   ```bash
+   # 示例：将中文文档名转换为目录名
+   # "2D视频引伸计固定方式说明" → "2d-video-extensometer-fixation"
+   ```
+
+2. **批量转换脚本**：
+   ```bash
+   # 遍历所有 .docx 文件进行转换
+   for doc in *.docx; do
+     product_name=$(convert_to_slug "${doc%.docx}")
+     pandoc -f docx -t commonmark --extract-media="./media-$product_name" -o "$product_name.md" "$doc"
+   done
+   ```
+
+3. **统一目录结构**：
+   ```bash
+   # 为每个产品创建独立目录
+   mkdir -p src/products/{产品1,产品2,...}
+   mkdir -p src/assets/products/{产品1,产品2,...}
+   ```
+
+4. **批量更新导航**：
+   - 在 `src/products/index.md` 中添加所有产品链接
+   - 在 `src/SUMMARY.md` 中添加所有文档条目
+
+#### 处理 .doc 格式文件
+Microsoft Word 的旧版 `.doc` 格式 **pandoc 不支持转换**，需特殊处理：
+
+1. **创建占位文档**：
+   ```markdown
+   # 文档名称
+   
+   > ⚠️ **格式限制**
+   > 
+   > 本文档为 `.doc` 格式，当前工具链不支持直接转换为 Markdown。
+   > 请下载原始文件：[原始文档.doc](原始文档下载链接)
+   ```
+
+2. **保留原始文件**：
+   - 将 `.doc` 文件保存在 `assets/products/产品名/` 目录中
+   - 在占位 Markdown 中提供下载链接
+
+3. **后续处理建议**：
+   - 建议用户将 `.doc` 文件另存为 `.docx` 格式重新上传
+   - 或使用 Microsoft Word 手动转换为 `.docx` 后再处理
+
+#### 权限与推送策略
+当没有上游仓库写入权限时：
+
+1. **使用 Fork 仓库**：
+   ```bash
+   # 确保 fork 存在
+   gh repo fork --remote=false
+   
+   # 添加 fork 远程
+   git remote add fork https://${GH_TOKEN}@github.com/用户名/仓库名.git
+   
+   # 推送到 fork
+   retry-exec git push fork feature/分支名
+   ```
+
+2. **创建跨仓库 PR**：
+   ```bash
+   gh pr create --head 用户名:feature/分支名 --base master --title "..."
+   ```
+
+3. **大仓库推送优化**：
+   ```bash
+   # 增加缓冲区大小（推荐 500MB）
+   git config http.postBuffer 524288000
+   
+   # 使用浅层推送（如果历史不重要）
+   git push --no-thin ...
+   ```
+
 ### 提交规范
 
 遵循 PJ568 提交规范：
