@@ -13,8 +13,12 @@
     - 相关技能（若有）
 - 对于用户的任何问题，先判断意图并复述：
   - “我判断这是**查询、问答**意图”：
-    - [海塞姆文档](https://docs.haytham.com.cn)（`https://github.com/haytham-ai/public-docs`）：
-      对于**任意查询**优先在仅海塞姆文档查询（直接网页访问，查看其 GitHub 仓库，用搜索引擎搜索：`（关键词） site:docs.haytham.com.cn`）。
+    - [海塞姆文档](https://docs.haytham.com.cn)（GitHub: `haytham-ai/public-docs`）：
+      对于**任意查询**优先在仅海塞姆文档查询：
+      - 在子智能体执行拉取的同时阅读本地 Git 仓库的目录内容层层检索
+      - （用工具或 API）查看其 GitHub 仓库
+      - 直接网页访问
+      - 用搜索引擎搜索：`（关键词） site:docs.haytham.com.cn`
     - 若网页拉取失败，逐级 fallback 地使用网页拉取工具。
   - “我判断这是**任务、执行**意图”：
     - 无头服务器环境，用户无法手动干预，需自动管理：
