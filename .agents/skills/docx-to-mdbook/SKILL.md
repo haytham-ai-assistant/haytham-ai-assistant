@@ -67,14 +67,14 @@ cat src/SUMMARY.md
 
 # 创建文档目录（按产品/模块分类）
 mkdir -p src/products/（多级分类）/产品名称/
-mkdir -p src/assets/products/（多级分类）/产品名称/
+mkdir -p src/assets/products/（多级分类）/产品名称/（文件名）
 
 # 移动图像资源
 cp -r media/* src/assets/products/（多级分类）/产品名称/
 
 # 更新图像引用路径
-sed -i 's|!\[\](media/|![..](../../assets/products/（多级分类）/产品名称/|g' "文档.md"
-sed -i 's|!\[\](./media/|![..](../../assets/products/（多级分类）/产品名称/|g' "文档.md"
+sed -i 's|!\[\](media/|![..](../../assets/products/（多级分类）/产品名称/（文件名）/|g' "文档.md"
+sed -i 's|!\[\](./media/|![..](../../assets/products/（多级分类）/产品名称/（文件名）/|g' "文档.md"
 ```
 
 ### 5. 更新目录结构
